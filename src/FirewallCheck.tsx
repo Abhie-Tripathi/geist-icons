@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const FirewallCheck: React.FC<AccessibilityProps> = (props) => {
+const FirewallCheck: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <g clip-path="url(#clip0_4629_2028)">
                                   <mask id="path-1-inside-1_4629_2028" fill="white">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M0 1.25C0 0.559645 0.559644 0 1.25 0H14.75C15.4404 0 16 0.559644 16 1.25V4.75V5.5H15.25H6V8.75V9.5H5.25H1.5V12H4.5V13.5H1.25C0.559644 13.5 0 12.9404 0 12.25V1.25ZM1.5 8H4.5V5.5H1.5V8ZM4.5 4H1.5V1.5H4.5V4ZM6 1.5V4H10V1.5H6ZM14.5 4H11.5V1.5H14.5V4ZM16 11.5C16 13.9853 13.9853 16 11.5 16C9.01472 16 7 13.9853 7 11.5C7 9.01472 9.01472 7 11.5 7C13.9853 7 16 9.01472 16 11.5ZM14.2861 10.3629L13.8442 10.8049L11.2407 13.4084C10.899 13.7501 10.345 13.7501 10.0033 13.4084L9.15574 12.5608L8.7138 12.1189L9.59768 11.235L10.0396 11.6769L10.622 12.2593L12.9603 9.92097L13.4023 9.47903L14.2861 10.3629Z"></path>
@@ -45,22 +58,6 @@ const FirewallCheck: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-FirewallCheck.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const LogoVue: React.FC<AccessibilityProps> = (props) => {
+const LogoVue: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <g clip-path="url(#clip0_872_3155)">
                                   <path d="M9.71934 0.916722L7.87183 4.11672L6.02431 0.916722H-0.128174L7.87183 14.7733L15.8718 0.916722H9.71934Z" fill="#41B883"></path>
                                   <path d="M9.71929 0.916724L7.87178 4.11672L6.02426 0.916724H3.07178L7.87178 9.2305L12.6718 0.916724H9.71929Z" fill="#34495E"></path>
@@ -42,22 +55,6 @@ const LogoVue: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-LogoVue.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

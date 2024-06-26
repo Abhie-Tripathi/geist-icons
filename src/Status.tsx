@@ -17,39 +17,36 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const Status: React.FC<AccessibilityProps> = (props) => {
+const Status: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <path d="M13 8C13 10.7614 10.7614 13 8 13C5.23858 13 3 10.7614 3 8C3 5.23858 5.23858 3 8 3C10.7614 3 13 5.23858 13 8Z" fill="currentColor"></path>
                               </svg>
     </SvgContainer>
   )
-}
-
-
-Status.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

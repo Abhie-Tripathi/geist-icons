@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const LogoMastercard: React.FC<AccessibilityProps> = (props) => {
+const LogoMastercard: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <g clip-path="url(#clip0_4898_1881)">
                                   <path d="M0 0H16V16H0V0Z" fill="black" ></path>
                                   <path d="M6.04466 10.9333C6.42987 10.9333 6.81131 10.8575 7.1672 10.7101C7.52309 10.5626 7.84646 10.3466 8.11884 10.0742C8.39123 9.80181 8.60729 9.47844 8.75471 9.12255C8.90212 8.76666 8.97799 8.38523 8.97799 8.00001C8.97799 7.6148 8.90212 7.23336 8.75471 6.87748C8.60729 6.52159 8.39123 6.19822 8.11884 5.92583C7.84646 5.65345 7.52309 5.43738 7.1672 5.28997C6.81131 5.14255 6.42987 5.06668 6.04466 5.06668C5.26669 5.06668 4.52059 5.37573 3.97048 5.92583C3.42037 6.47594 3.11133 7.22205 3.11133 8.00001C3.11133 8.77798 3.42037 9.52409 3.97048 10.0742C4.52059 10.6243 5.26669 10.9333 6.04466 10.9333Z" fill="#EB001B" ></path>
@@ -44,22 +57,6 @@ const LogoMastercard: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-LogoMastercard.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

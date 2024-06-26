@@ -25,37 +25,34 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const ${toCamelCase(componentName)}: React.FC<AccessibilityProps> = (props) => {
+const ${toCamelCase(componentName)}: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
       ${svg}
     </SvgContainer>
   )
-}
-
-
-${toCamelCase(componentName)}.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 
@@ -97,11 +94,11 @@ fs.readdir("./svgicons", (err, files) => {
     svg = svg.replace(/width="[^"]*"/g, "");
     svg = svg.replace(
       "<svg",
-      "<svg style={props.style} className={props.cssClasses}"
+      "<svg style={style} className={cssClasses}"
     );
     svg = svg.replace(
       /<title>.*<\/title>/,
-      "{props.title ? <title>{props.title}</title> : ''}"
+      "{title ? <title>{title}</title> : ''}"
     );
     const component = createTemplate(file.replace(".svg", ""), String(svg));
     const fileName = toCamelCase(file.replace(".svg", ""));

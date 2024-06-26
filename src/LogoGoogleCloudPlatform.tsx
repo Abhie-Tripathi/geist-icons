@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const LogoGoogleCloudPlatform: React.FC<AccessibilityProps> = (props) => {
+const LogoGoogleCloudPlatform: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <path d="M10.1529 5.07982H10.6408L12.0316 3.67566L12.0999 3.07951C11.3032 2.36953 10.3404 1.87633 9.30236 1.6465C8.26434 1.41667 7.18543 1.45781 6.16754 1.76601C5.14965 2.07422 4.22638 2.63932 3.48496 3.40794C2.74353 4.17656 2.20842 5.12333 1.93018 6.1588C2.08511 6.09468 2.25675 6.08428 2.41817 6.12924L5.19973 5.66611C5.19973 5.66611 5.34125 5.42962 5.41444 5.4444C6.01044 4.78355 6.8341 4.37769 7.7168 4.30991C8.5995 4.24213 9.47448 4.51756 10.1626 5.07982H10.1529Z" fill="#EA4335" ></path>
                                 <path d="M14.0128 6.15871C13.6931 4.97017 13.0368 3.90169 12.1243 3.08435L10.1723 5.05509C10.5791 5.39069 10.9052 5.81518 11.1258 6.29653C11.3464 6.77789 11.4559 7.30354 11.446 7.83384V8.18365C11.6741 8.18365 11.9 8.22901 12.1108 8.31716C12.3216 8.4053 12.5131 8.5345 12.6744 8.69737C12.8357 8.86024 12.9637 9.0536 13.051 9.2664C13.1383 9.4792 13.1832 9.70727 13.1832 9.93761C13.1832 10.1679 13.1383 10.396 13.051 10.6088C12.9637 10.8216 12.8357 11.015 12.6744 11.1778C12.5131 11.3407 12.3216 11.4699 12.1108 11.5581C11.9 11.6462 11.6741 11.6916 11.446 11.6916H7.97147L7.625 12.0463V14.1501L7.97147 14.4999H11.446C12.4162 14.5075 13.3631 14.1996 14.1466 13.6218C14.9301 13.044 15.5086 12.2269 15.7965 11.2914C16.0844 10.3559 16.0664 9.35168 15.7451 8.42732C15.4239 7.50296 14.8165 6.70753 14.0128 6.15871Z" fill="#4285F4"></path>
                                 <path d="M4.49204 14.4798H7.96655V11.6715H4.49204C4.2445 11.6715 3.99986 11.6177 3.77469 11.5139L3.2867 11.6666L1.88616 13.0707L1.76416 13.5634C2.54955 14.1622 3.50789 14.4841 4.49204 14.4798Z" fill="#34A853"></path>
@@ -37,22 +50,6 @@ const LogoGoogleCloudPlatform: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-LogoGoogleCloudPlatform.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

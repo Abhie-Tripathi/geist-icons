@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const EdgeConfig: React.FC<AccessibilityProps> = (props) => {
+const EdgeConfig: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <svg fill="none"  viewBox="0 0 16 16"  xmlns="http://www.w3.org/2000/svg">
                                   <g clip-path="url(#clip0_3394_1494)">
                                     <circle cx="8" cy="6" fill="currentColor" r="1.25"></circle>
@@ -44,22 +57,6 @@ const EdgeConfig: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-EdgeConfig.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

@@ -17,39 +17,36 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const SettingsSlider: React.FC<AccessibilityProps> = (props) => {
+const SettingsSlider: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <path fillRule="evenodd" clipRule="evenodd" d="M5.77348 6.39779L4.75 7.5L3.72652 6.39779L1.76721 4.28776C1.59545 4.10279 1.5 3.85972 1.5 3.60731L1.5 0.999999C1.5 0.447715 1.94772 0 2.5 0H7C7.55229 0 8 0.447715 8 1L8 3.60731C8 3.85972 7.90455 4.1028 7.73279 4.28776L5.77348 6.39779ZM6.5 3.41096L4.75 5.29558L3 3.41096L3 1.5L6.5 1.5V3.41096ZM5.5 9.5V10.25V12L15.25 12H16L16 13.5H15.25L5.5 13.5V15.25V16H4V15.25V13.5L0.750001 13.5H0V12H0.749999L4 12V10.25V9.5H5.5Z" fill="currentColor"></path>
                               </svg>
     </SvgContainer>
   )
-}
-
-
-SettingsSlider.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

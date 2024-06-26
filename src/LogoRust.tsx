@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const LogoRust: React.FC<AccessibilityProps> = (props) => {
+const LogoRust: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <path d="M6.71709 5.81132H8.67935C9.8869 5.81132 9.8869 7.01887 8.67935 7.01887H6.71709V5.81132ZM2.03784 11.3962H8.07558V9.73585H6.71709V8.5283H8.22652C9.8869 8.5283 8.98124 11.3962 10.3397 11.3962H14.1133V8.5283H13.2077V8.83019C13.2077 10.0377 11.8492 9.88679 11.6982 9.13208C11.5473 8.37736 10.9435 7.77359 10.7926 7.77359C13.0567 6.56604 11.6982 4.15094 9.8869 4.15094H2.79256V5.81132H4.30199V9.73585H2.03784V11.3962Z" fill="currentColor" stroke="currentColor" strokeWidth="0.150943" strokeLinejoin="round"></path>
                                 <path d="M8.00009 14.4906C11.5847 14.4906 14.4907 11.5846 14.4907 8C14.4907 4.41536 11.5847 1.50943 8.00009 1.50943C4.41545 1.50943 1.50952 4.41536 1.50952 8C1.50952 11.5846 4.41545 14.4906 8.00009 14.4906Z" stroke="currentColor" strokeWidth="1.35849" fill="transparent"></path>
                                 <path d="M14.9436 8.45283L15.6983 8L14.9436 7.54717V8.45283Z" fill="currentColor" stroke="currentColor" strokeWidth="0.45283" strokeLinejoin="round"></path>
@@ -72,22 +85,6 @@ const LogoRust: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-LogoRust.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

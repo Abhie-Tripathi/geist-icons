@@ -17,19 +17,32 @@ interface AccessibilityProps {
   onClick?: () => void;
 }
 
-const LogoSolid: React.FC<AccessibilityProps> = (props) => {
+const LogoSolid: React.FC<AccessibilityProps> = ({
+  style = {},
+  color = '#000000',
+  height = '20px',
+  width = '20px',
+  className = '',
+  cssClasses = '',
+  title = '',
+  shake = false,
+  beat = false,
+  rotate = false,
+  onClick,
+
+}) => {
   return (
     <SvgContainer
-      height={props.height}
-      width={props.width}
-      color={props.color}
-      onClick={props.onClick}
-      rotate={props.rotate ? true : false}
-      shake={props.shake ? true : false}
-      beat={props.beat ? true : false}
-      className={props.className}
+      height={height}
+      width={width}
+      color={color}
+      onClick={onClick}
+      rotate={rotate ? true : false}
+      shake={shake ? true : false}
+      beat={beat ? true : false}
+      className={className}
     >
-      <svg style={props.style} className={props.cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
+      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
                                 <g clip-path="url(#clip0_872_3153)">
                                   <path d="M16 3.6782C16 3.6782 10.6667 -0.275745 6.5409 0.636705L6.23901 0.738088C5.63524 0.940855 5.13209 1.245 4.8302 1.65054L4.62894 1.95469L3.11951 4.59065L5.73587 5.09757C6.84279 5.80725 8.25159 6.1114 9.55977 5.80725L14.1887 6.7197L16 3.6782Z" fill="#76B3E1"></path>
                                   <path opacity="0.3" d="M16 3.6782C16 3.6782 10.6667 -0.275745 6.5409 0.636705L6.23901 0.738088C5.63524 0.940855 5.13209 1.245 4.8302 1.65054L4.62894 1.95469L3.11951 4.59065L5.73587 5.09757C6.84279 5.80725 8.25159 6.1114 9.55977 5.80725L14.1887 6.7197L16 3.6782Z" fill="url(#paint0_linear_872_3153)"></path>
@@ -66,22 +79,6 @@ const LogoSolid: React.FC<AccessibilityProps> = (props) => {
                               </svg>
     </SvgContainer>
   )
-}
-
-
-LogoSolid.defaultProps = {
-  // style
-  style: {},
-  color: '#000000',
-  height: '22px',
-  width: '22px',
-  cssClasses: '',
-  title: '',
-
-  // animation
-  shake: false,
-  beat: false,
-  rotate: false,
 }
 
 

@@ -54,11 +54,11 @@ interface SvgContainerProps {
 
 const SvgContainer = styled.span<SvgContainerProps>`
   svg {
-    vertical-align: ${(props) => props.verticalAlign};
-    height: ${(props) => props.height};
-    width: ${(props) => props.width};
-    color: ${(props) => props.color};
-    fill: ${(props) => props.color};
+    vertical-align: ${({ verticalAlign = "middle" }) => verticalAlign};
+    height: ${({ height }) => height};
+    width: ${({ width }) => width};
+    color: ${({ color }) => color};
+    fill: ${({ color }) => color};
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     ${(props) =>
@@ -81,9 +81,5 @@ const SvgContainer = styled.span<SvgContainerProps>`
       `}
   }
 `;
-
-SvgContainer.defaultProps = {
-  verticalAlign: "middle",
-};
 
 export default SvgContainer;
