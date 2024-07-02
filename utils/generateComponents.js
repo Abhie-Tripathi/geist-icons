@@ -18,10 +18,6 @@ interface AccessibilityProps {
   width?: string;
   className?: string;
   cssClasses?: string;
-  title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
   onClick?: () => void;
 }
 
@@ -32,10 +28,6 @@ const ${toCamelCase(componentName)}: React.FC<AccessibilityProps> = ({
   width = '20px',
   className = '',
   cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
   onClick,
 
 }) => {
@@ -45,9 +37,6 @@ const ${toCamelCase(componentName)}: React.FC<AccessibilityProps> = ({
       width={width}
       color={color}
       onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
       className={className}
     >
       ${svg}
