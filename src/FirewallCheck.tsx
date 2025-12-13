@@ -1,49 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const FirewallCheck: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
-
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <g clip-path="url(#clip0_4629_2028)">
+const FirewallCheck = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <g clipPath="url(#clip0_4629_2028)">
                                   <mask id="path-1-inside-1_4629_2028" fill="white">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M0 1.25C0 0.559645 0.559644 0 1.25 0H14.75C15.4404 0 16 0.559644 16 1.25V4.75V5.5H15.25H6V8.75V9.5H5.25H1.5V12H4.5V13.5H1.25C0.559644 13.5 0 12.9404 0 12.25V1.25ZM1.5 8H4.5V5.5H1.5V8ZM4.5 4H1.5V1.5H4.5V4ZM6 1.5V4H10V1.5H6ZM14.5 4H11.5V1.5H14.5V4ZM16 11.5C16 13.9853 13.9853 16 11.5 16C9.01472 16 7 13.9853 7 11.5C7 9.01472 9.01472 7 11.5 7C13.9853 7 16 9.01472 16 11.5ZM14.2861 10.3629L13.8442 10.8049L11.2407 13.4084C10.899 13.7501 10.345 13.7501 10.0033 13.4084L9.15574 12.5608L8.7138 12.1189L9.59768 11.235L10.0396 11.6769L10.622 12.2593L12.9603 9.92097L13.4023 9.47903L14.2861 10.3629Z"></path>
                                   </mask>
@@ -52,32 +33,14 @@ const FirewallCheck: React.FC<AccessibilityProps> = ({
                                 </g>
                                 <defs>
                                   <clipPath id="clip0_4629_2028">
-                                    <rect   fill="white"></rect>
+                                    <rect width="16" height="16" fill="white"></rect>
                                   </clipPath>
                                 </defs>
-                              </svg>
-    </SvgContainer>
-  )
-}
+      </svg>
+    );
+  }
+);
 
+FirewallCheck.displayName = 'FirewallCheck';
 
-FirewallCheck.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default FirewallCheck
+export default FirewallCheck;

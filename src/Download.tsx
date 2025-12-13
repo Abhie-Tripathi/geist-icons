@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const Download: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const Download = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M8.75 1V1.75V8.68934L10.7197 6.71967L11.25 6.18934L12.3107 7.25L11.7803 7.78033L8.70711 10.8536C8.31658 11.2441 7.68342 11.2441 7.29289 10.8536L4.21967 7.78033L3.68934 7.25L4.75 6.18934L5.28033 6.71967L7.25 8.68934V1.75V1H8.75ZM13.5 9.25V13.5H2.5V9.25V8.5H1V9.25V14C1 14.5523 1.44771 15 2 15H14C14.5523 15 15 14.5523 15 14V9.25V8.5H13.5V9.25Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M8.75 1V1.75V8.68934L10.7197 6.71967L11.25 6.18934L12.3107 7.25L11.7803 7.78033L8.70711 10.8536C8.31658 11.2441 7.68342 11.2441 7.29289 10.8536L4.21967 7.78033L3.68934 7.25L4.75 6.18934L5.28033 6.71967L7.25 8.68934V1.75V1H8.75ZM13.5 9.25V13.5H2.5V9.25V8.5H1V9.25V14C1 14.5523 1.44771 15 2 15H14C14.5523 15 15 14.5523 15 14V9.25V8.5H13.5V9.25Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+Download.displayName = 'Download';
 
-
-Download.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default Download
+export default Download;

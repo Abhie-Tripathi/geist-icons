@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const BrowserChrome: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const BrowserChrome = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M8.53216 11.3333L6.77086 14.3839C3.76871 13.8094 1.5 11.1696 1.5 8C1.5 6.86643 1.79018 5.80063 2.3003 4.87284L5.006 9.55925C5.56913 10.6383 6.69854 11.375 8 11.375C8.18107 11.375 8.35881 11.3607 8.53216 11.3333ZM10.8505 9.80787L8.14234 14.4985C11.6665 14.4228 14.5 11.5423 14.5 8C14.5 7.2549 14.3746 6.53909 14.1438 5.8725L10.6201 5.8725C11.0921 6.45305 11.375 7.19349 11.375 8C11.375 8.66509 11.1826 9.28525 10.8505 9.80787ZM8.13109 4.6275L13.5577 4.6275C12.4175 2.7524 10.355 1.5 8 1.5C6.0376 1.5 4.27831 2.36964 3.08649 3.74456L4.84694 6.79376C5.33242 5.52553 6.56104 4.625 8 4.625C8.0439 4.625 8.0876 4.62584 8.13109 4.6275ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM5.875 8C5.875 6.8264 6.8264 5.875 8 5.875C9.1736 5.875 10.125 6.8264 10.125 8C10.125 9.1736 9.1736 10.125 8 10.125C6.8264 10.125 5.875 9.1736 5.875 8Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M8.53216 11.3333L6.77086 14.3839C3.76871 13.8094 1.5 11.1696 1.5 8C1.5 6.86643 1.79018 5.80063 2.3003 4.87284L5.006 9.55925C5.56913 10.6383 6.69854 11.375 8 11.375C8.18107 11.375 8.35881 11.3607 8.53216 11.3333ZM10.8505 9.80787L8.14234 14.4985C11.6665 14.4228 14.5 11.5423 14.5 8C14.5 7.2549 14.3746 6.53909 14.1438 5.8725L10.6201 5.8725C11.0921 6.45305 11.375 7.19349 11.375 8C11.375 8.66509 11.1826 9.28525 10.8505 9.80787ZM8.13109 4.6275L13.5577 4.6275C12.4175 2.7524 10.355 1.5 8 1.5C6.0376 1.5 4.27831 2.36964 3.08649 3.74456L4.84694 6.79376C5.33242 5.52553 6.56104 4.625 8 4.625C8.0439 4.625 8.0876 4.62584 8.13109 4.6275ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM5.875 8C5.875 6.8264 6.8264 5.875 8 5.875C9.1736 5.875 10.125 6.8264 10.125 8C10.125 9.1736 9.1736 10.125 8 10.125C6.8264 10.125 5.875 9.1736 5.875 8Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+BrowserChrome.displayName = 'BrowserChrome';
 
-
-BrowserChrome.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default BrowserChrome
+export default BrowserChrome;

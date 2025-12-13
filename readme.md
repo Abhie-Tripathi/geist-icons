@@ -1,21 +1,26 @@
 # Geist Icons
 
-This library is a custom implementation of Vercel's Geist Icons, enhanced with styled-components for animations. It provides a collection of SVG icons with added support for animations like rotation, shaking, and beating.
+A refined, high-performance icon library based on the aesthetic of Vercel's Geist UI.
 
-## Features
+This library provides clean, tree-shakeable SVG icons packaged as zero-dependency React components.
 
-- A collection of SVG icons from Vercel's Geist Icons
-- Styled-components for adding animations
-- Customizable props for color, size, and animation effects
+---
 
-## Installation
+## ✨ Features
 
-To install the library, run:
+*   **Zero Dependencies:** No mandatory runtime dependencies like `styled-components` or `prop-types`.
+*   **Modern Build System:** Uses **tsup** and **esbuild** for lightning-fast bundling, generating native ESM and CommonJS exports.
+*   **Tree-Shakeable:** Exports are configured to ensure bundlers remove any icons you don't use, resulting in smaller application bundles.
+*   **Customizable:** Supports passing standard SVG props, including `color`, `size`, and `title`.
+*   **Ref Forwarding:** All components forward a `ref` to the underlying `<svg>` element for easy integration with tooltips or animation libraries.
+
+## 📦 Installation
+
+To start using Geist Icons, install the package via npm or yarn:
 
 ```bash
 npm install geist-icons
-```
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+# or
+yarn add geist-icons
+# or
+bun add geist-icons

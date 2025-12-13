@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const LogoAzureDevops: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const LogoAzureDevops = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path d="M16 2.99657V12.5L12 16L6 14V15.9806L2 11.5L12 12.5V3.5L16 2.99657ZM12 3.5L7 0V2.28686L1.5 4L0 5.56457V10.5L2 11.5V5.56457L12 3.5Z" fill="#0078D4"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path d="M16 2.99657V12.5L12 16L6 14V15.9806L2 11.5L12 12.5V3.5L16 2.99657ZM12 3.5L7 0V2.28686L1.5 4L0 5.56457V10.5L2 11.5V5.56457L12 3.5Z" fill="#0078D4"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+LogoAzureDevops.displayName = 'LogoAzureDevops';
 
-
-LogoAzureDevops.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default LogoAzureDevops
+export default LogoAzureDevops;

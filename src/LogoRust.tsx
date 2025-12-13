@@ -1,49 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const LogoRust: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
-
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path d="M6.71709 5.81132H8.67935C9.8869 5.81132 9.8869 7.01887 8.67935 7.01887H6.71709V5.81132ZM2.03784 11.3962H8.07558V9.73585H6.71709V8.5283H8.22652C9.8869 8.5283 8.98124 11.3962 10.3397 11.3962H14.1133V8.5283H13.2077V8.83019C13.2077 10.0377 11.8492 9.88679 11.6982 9.13208C11.5473 8.37736 10.9435 7.77359 10.7926 7.77359C13.0567 6.56604 11.6982 4.15094 9.8869 4.15094H2.79256V5.81132H4.30199V9.73585H2.03784V11.3962Z" fill="currentColor" stroke="currentColor" strokeWidth="0.150943" strokeLinejoin="round"></path>
+const LogoRust = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path d="M6.71709 5.81132H8.67935C9.8869 5.81132 9.8869 7.01887 8.67935 7.01887H6.71709V5.81132ZM2.03784 11.3962H8.07558V9.73585H6.71709V8.5283H8.22652C9.8869 8.5283 8.98124 11.3962 10.3397 11.3962H14.1133V8.5283H13.2077V8.83019C13.2077 10.0377 11.8492 9.88679 11.6982 9.13208C11.5473 8.37736 10.9435 7.77359 10.7926 7.77359C13.0567 6.56604 11.6982 4.15094 9.8869 4.15094H2.79256V5.81132H4.30199V9.73585H2.03784V11.3962Z" fill="currentColor" stroke="currentColor" strokeWidth="0.150943" strokeLinejoin="round"></path>
                                 <path d="M8.00009 14.4906C11.5847 14.4906 14.4907 11.5846 14.4907 8C14.4907 4.41536 11.5847 1.50943 8.00009 1.50943C4.41545 1.50943 1.50952 4.41536 1.50952 8C1.50952 11.5846 4.41545 14.4906 8.00009 14.4906Z" stroke="currentColor" strokeWidth="1.35849" fill="transparent"></path>
                                 <path d="M14.9436 8.45283L15.6983 8L14.9436 7.54717V8.45283Z" fill="currentColor" stroke="currentColor" strokeWidth="0.45283" strokeLinejoin="round"></path>
                                 <path d="M14.7218 9.79872L15.5503 9.50183L14.8984 8.91046L14.7218 9.79872Z" fill="currentColor" stroke="currentColor" strokeWidth="0.45283" strokeLinejoin="round"></path>
@@ -82,29 +63,11 @@ const LogoRust: React.FC<AccessibilityProps> = ({
                                 <path d="M12.5811 12.5078L11.1052 12.2741L10.8714 13.7499L12.5811 12.5078Z" fill="currentColor" stroke="currentColor" strokeWidth="0.90566" strokeLinejoin="round"></path>
                                 <path d="M5.12842 13.7499L4.89466 12.274L3.4188 12.5078L5.12842 13.7499Z" fill="currentColor" stroke="currentColor" strokeWidth="0.90566" strokeLinejoin="round"></path>
                                 <path d="M1.64404 7.04584L2.97544 6.36746L2.29706 5.03606L1.64404 7.04584Z" fill="currentColor" stroke="currentColor" strokeWidth="0.90566" strokeLinejoin="round"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+      </svg>
+    );
+  }
+);
 
+LogoRust.displayName = 'LogoRust';
 
-LogoRust.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default LogoRust
+export default LogoRust;

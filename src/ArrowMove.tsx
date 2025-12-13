@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const ArrowMove: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const ArrowMove = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path d="M4.93933 2.99996L7.29288 0.646409C7.6834 0.255885 8.31657 0.255885 8.70709 0.646409L11.0606 2.99996L9.99999 4.06062L8.7501 2.81074V7.24996H13.1894L11.9394 5.99995L13.0001 4.93929L15.3536 7.29285C15.7441 7.68337 15.7441 8.31654 15.3536 8.70706L13.0001 11.0606L11.9394 9.99995L13.1894 8.74996H8.7501V13.1892L9.99999 11.9393L11.0606 13L8.70709 15.3535C8.31657 15.744 7.6834 15.744 7.29288 15.3535L4.93933 13L5.99999 11.9393L7.2501 13.1894V8.74996H2.81069L4.06068 9.99995L3.00002 11.0606L0.64647 8.70706C0.255946 8.31654 0.255946 7.68337 0.64647 7.29285L3.00002 4.93929L4.06068 5.99995L2.81068 7.24996H7.2501V2.81051L5.99999 4.06062L4.93933 2.99996Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path d="M4.93933 2.99996L7.29288 0.646409C7.6834 0.255885 8.31657 0.255885 8.70709 0.646409L11.0606 2.99996L9.99999 4.06062L8.7501 2.81074V7.24996H13.1894L11.9394 5.99995L13.0001 4.93929L15.3536 7.29285C15.7441 7.68337 15.7441 8.31654 15.3536 8.70706L13.0001 11.0606L11.9394 9.99995L13.1894 8.74996H8.7501V13.1892L9.99999 11.9393L11.0606 13L8.70709 15.3535C8.31657 15.744 7.6834 15.744 7.29288 15.3535L4.93933 13L5.99999 11.9393L7.2501 13.1894V8.74996H2.81069L4.06068 9.99995L3.00002 11.0606L0.64647 8.70706C0.255946 8.31654 0.255946 7.68337 0.64647 7.29285L3.00002 4.93929L4.06068 5.99995L2.81068 7.24996H7.2501V2.81051L5.99999 4.06062L4.93933 2.99996Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+ArrowMove.displayName = 'ArrowMove';
 
-
-ArrowMove.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default ArrowMove
+export default ArrowMove;

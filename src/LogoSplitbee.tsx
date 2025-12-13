@@ -1,49 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const LogoSplitbee: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
-
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path d="M4.78979 13.4652V8.14408L0.531982 11.4689L4.78928 13.4647L4.78979 13.4652Z" fill="white"></path>
+const LogoSplitbee = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path d="M4.78979 13.4652V8.14408L0.531982 11.4689L4.78928 13.4647L4.78979 13.4652Z" fill="white"></path>
                                 <path d="M4.78982 8.14408L4.4623 7.72458C4.54083 7.66321 4.63502 7.62514 4.73414 7.6147C4.83326 7.60427 4.93332 7.6219 5.02291 7.66557C5.1125 7.70925 5.18801 7.77722 5.24085 7.86173C5.29368 7.94624 5.3217 8.0439 5.32173 8.14357L4.78982 8.14408ZM4.78982 13.4652H5.32173C5.32177 13.5548 5.2992 13.6429 5.25611 13.7214C5.21302 13.7999 5.1508 13.8663 5.07523 13.9143C4.99966 13.9624 4.91318 13.9906 4.8238 13.9963C4.73443 14.002 4.64506 13.9851 4.56398 13.947L4.78982 13.4652ZM0.532009 11.4689L0.306166 11.9507C0.223835 11.9121 0.15277 11.8531 0.0997577 11.7792C0.0467453 11.7053 0.0135552 11.6191 0.00335663 11.5288C-0.00684198 11.4384 0.00629142 11.3469 0.0415028 11.2631C0.0767141 11.1793 0.132828 11.1059 0.204486 11.0499L0.532009 11.4689ZM5.32122 8.14357V13.4647H4.2574V8.14408L5.32173 8.14357H5.32122ZM4.56398 13.947L0.306677 11.9512L0.758875 10.9876L5.01515 12.9834L4.56398 13.947ZM0.205508 11.0499L4.46179 7.72458L5.11734 8.56306L0.860555 11.8894L0.205508 11.0499Z" fill="#121212"></path>
                                 <path d="M7.73193 1.09029C8.13559 0.916562 8.67567 0.984009 9.26276 1.37591C9.84474 1.76424 10.4099 2.43769 10.788 3.31756C11.1661 4.19743 11.2662 5.07117 11.1472 5.76045C11.0276 6.45638 10.7052 6.89376 10.301 7.06749C9.89737 7.24121 9.3578 7.17428 8.77071 6.78237C8.18821 6.39404 7.62309 5.71958 7.24499 4.84073C6.86688 3.96086 6.76724 3.08712 6.88578 2.39732C7.00535 1.70191 7.32827 1.26401 7.73193 1.09029Z" fill="white" stroke="#121212" strokeWidth="1.06433"></path>
                                 <path d="M3.18219 11.2292C3.75957 13.7646 6.7078 15.4712 10.214 14.7498C13.7452 14.0227 15.8805 11.2451 15.3072 8.72964C14.7355 6.21981 11.5966 4.53262 8.07512 5.24694C4.04468 6.48346 2.69167 9.07607 3.18219 11.2292Z" fill="#FFC700"></path>
@@ -55,33 +36,15 @@ const LogoSplitbee: React.FC<AccessibilityProps> = ({
                                 <path d="M11.935 9.08064C11.6479 9.1428 11.3647 8.96045 11.3026 8.67333C11.2404 8.38622 11.4228 8.10308 11.7099 8.04091C11.997 7.97875 12.2801 8.1611 12.3423 8.44821C12.4045 8.73533 12.2221 9.01847 11.935 9.08064Z" fill="#121212" stroke="#121212" strokeWidth="0.531908"></path>
                                 <defs>
                                   <linearGradient id="paint0_linear_872_3172" x1="7.93256" y1="4.73292" x2="10.9569" y2="15.1248" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FFE073"></stop>
-                                    <stop offset="1" stop-color="#FFA800"></stop>
+                                    <stop stopColor="#FFE073"></stop>
+                                    <stop offset="1" stopColor="#FFA800"></stop>
                                   </linearGradient>
                                 </defs>
-                              </svg>
-    </SvgContainer>
-  )
-}
+      </svg>
+    );
+  }
+);
 
+LogoSplitbee.displayName = 'LogoSplitbee';
 
-LogoSplitbee.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default LogoSplitbee
+export default LogoSplitbee;

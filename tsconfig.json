@@ -1,18 +1,18 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "module": "ESNext",
-      "jsx": "react",
-      "strict": true,
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "declaration": true,
-      "emitDeclarationOnly": true,
-      "outDir": "dist/types"
-    },
-    "include": ["src/**/*", "utils/SvgContainer.js"],
-    "exclude": ["node_modules", "dist"],
-    "files": ["src/index.ts"]
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/types",
+    "isolatedModules": true
+  },
+  "include": ["src/**/*", "utils/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

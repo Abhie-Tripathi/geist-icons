@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const ZeroConfig: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const ZeroConfig = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M15.5303 1.53032L16.0607 0.999991L15 -0.0606689L14.4697 0.469661L12.3911 2.54823C11.1902 1.57978 9.66282 0.999991 7.99999 0.999991C4.134 0.999991 0.999991 4.134 0.999991 7.99999C0.999991 9.66282 1.57978 11.1902 2.54823 12.3911L0.469661 14.4697L-0.0606689 15L0.999991 16.0607L1.53032 15.5303L3.60889 13.4517C4.80975 14.4202 6.33716 15 7.99999 15C11.866 15 15 11.866 15 7.99999C15 6.33716 14.4202 4.80975 13.4517 3.60889L15.5303 1.53032ZM11.3226 3.61669C10.3996 2.91589 9.24835 2.49999 7.99999 2.49999C4.96243 2.49999 2.49999 4.96243 2.49999 7.99999C2.49999 9.24834 2.91589 10.3996 3.61669 11.3226L11.3226 3.61669ZM4.67735 12.3833L12.3833 4.67735C13.0841 5.60042 13.5 6.75164 13.5 7.99999C13.5 11.0376 11.0376 13.5 7.99999 13.5C6.75164 13.5 5.60042 13.0841 4.67735 12.3833Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M15.5303 1.53032L16.0607 0.999991L15 -0.0606689L14.4697 0.469661L12.3911 2.54823C11.1902 1.57978 9.66282 0.999991 7.99999 0.999991C4.134 0.999991 0.999991 4.134 0.999991 7.99999C0.999991 9.66282 1.57978 11.1902 2.54823 12.3911L0.469661 14.4697L-0.0606689 15L0.999991 16.0607L1.53032 15.5303L3.60889 13.4517C4.80975 14.4202 6.33716 15 7.99999 15C11.866 15 15 11.866 15 7.99999C15 6.33716 14.4202 4.80975 13.4517 3.60889L15.5303 1.53032ZM11.3226 3.61669C10.3996 2.91589 9.24835 2.49999 7.99999 2.49999C4.96243 2.49999 2.49999 4.96243 2.49999 7.99999C2.49999 9.24834 2.91589 10.3996 3.61669 11.3226L11.3226 3.61669ZM4.67735 12.3833L12.3833 4.67735C13.0841 5.60042 13.5 6.75164 13.5 7.99999C13.5 11.0376 11.0376 13.5 7.99999 13.5C6.75164 13.5 5.60042 13.0841 4.67735 12.3833Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+ZeroConfig.displayName = 'ZeroConfig';
 
-
-ZeroConfig.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default ZeroConfig
+export default ZeroConfig;

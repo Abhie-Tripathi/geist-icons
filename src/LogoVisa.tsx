@@ -1,83 +1,46 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const LogoVisa: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
-
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <g clip-path="url(#clip0_4898_1862)">
+const LogoVisa = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <g clipPath="url(#clip0_4898_1862)">
                                   <path d="M0 0H16V16H0V0Z" fill="#1434CB" ></path>
                                   <path d="M9.70766 4.44446L7.85966 9.21868L7.08989 5.15557C6.98678 4.69868 6.62766 4.44446 6.26855 4.44446H3.60722L3.55566 4.64801C4.17166 4.80001 4.63478 4.95201 5.04544 5.15557C5.17344 5.21957 5.28011 5.33335 5.345 5.81601L6.67922 11.5556H8.57789L11.5557 4.44446H9.70766Z" fill="url(#paint0_linear_4898_1862)" ></path>
                                 </g>
                                 <defs>
                                   <linearGradient id="paint0_linear_4898_1862" x1="68.1717" y1="96.448" x2="69.5566" y2="40.8729" gradientUnits="userSpaceOnUse">
-                                    <stop offset="1" stop-color="white" ></stop>
+                                    <stop offset="1" stopColor="white" ></stop>
                                   </linearGradient>
                                   <clipPath id="clip0_4898_1862">
-                                    <rect   rx="2" fill="white" ></rect>
+                                    <rect width="16" height="16" rx="2" fill="white" ></rect>
                                   </clipPath>
                                 </defs>
-                              </svg>
-    </SvgContainer>
-  )
-}
+      </svg>
+    );
+  }
+);
 
+LogoVisa.displayName = 'LogoVisa';
 
-LogoVisa.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default LogoVisa
+export default LogoVisa;

@@ -1,49 +1,30 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const LogoMastercard: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
-
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <g clip-path="url(#clip0_4898_1881)">
+const LogoMastercard = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <g clipPath="url(#clip0_4898_1881)">
                                   <path d="M0 0H16V16H0V0Z" fill="black" ></path>
                                   <path d="M6.04466 10.9333C6.42987 10.9333 6.81131 10.8575 7.1672 10.7101C7.52309 10.5626 7.84646 10.3466 8.11884 10.0742C8.39123 9.80181 8.60729 9.47844 8.75471 9.12255C8.90212 8.76666 8.97799 8.38523 8.97799 8.00001C8.97799 7.6148 8.90212 7.23336 8.75471 6.87748C8.60729 6.52159 8.39123 6.19822 8.11884 5.92583C7.84646 5.65345 7.52309 5.43738 7.1672 5.28997C6.81131 5.14255 6.42987 5.06668 6.04466 5.06668C5.26669 5.06668 4.52059 5.37573 3.97048 5.92583C3.42037 6.47594 3.11133 7.22205 3.11133 8.00001C3.11133 8.77798 3.42037 9.52409 3.97048 10.0742C4.52059 10.6243 5.26669 10.9333 6.04466 10.9333Z" fill="#EB001B" ></path>
                                   <path d="M9.95579 10.9333C10.341 10.9333 10.7224 10.8575 11.0783 10.7101C11.4342 10.5626 11.7576 10.3466 12.03 10.0742C12.3024 9.80181 12.5184 9.47844 12.6658 9.12255C12.8133 8.76666 12.8891 8.38523 12.8891 8.00001C12.8891 7.6148 12.8133 7.23336 12.6658 6.87748C12.5184 6.52159 12.3024 6.19822 12.03 5.92583C11.7576 5.65345 11.4342 5.43738 11.0783 5.28997C10.7224 5.14255 10.341 5.06668 9.95579 5.06668C9.17783 5.06668 8.43172 5.37573 7.88161 5.92583C7.33151 6.47594 7.02246 7.22205 7.02246 8.00001C7.02246 8.77798 7.33151 9.52409 7.88161 10.0742C8.43172 10.6243 9.17783 10.9333 9.95579 10.9333Z" fill="#F79E1B" ></path>
@@ -51,32 +32,14 @@ const LogoMastercard: React.FC<AccessibilityProps> = ({
                                 </g>
                                 <defs>
                                   <clipPath id="clip0_4898_1881">
-                                    <rect   rx="2" fill="white" ></rect>
+                                    <rect width="16" height="16" rx="2" fill="white" ></rect>
                                   </clipPath>
                                 </defs>
-                              </svg>
-    </SvgContainer>
-  )
-}
+      </svg>
+    );
+  }
+);
 
+LogoMastercard.displayName = 'LogoMastercard';
 
-LogoMastercard.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default LogoMastercard
+export default LogoMastercard;

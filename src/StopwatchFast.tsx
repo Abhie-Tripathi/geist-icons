@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const StopwatchFast: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const StopwatchFast = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M7.00001 -0.25H7.75001H8.25001H9.75001H10.25H11V1.25H10.25H9.75001V2.03971C11.1207 2.18571 12.3732 2.72735 13.3911 3.54824L13.9697 2.96967L14.5 2.43934L15.5607 3.5L15.0303 4.03033L14.4518 4.6089C15.4202 5.80976 16 7.33717 16 9C16 12.866 12.866 16 9.00002 16C7.3965 16 5.91736 15.46 4.73698 14.5525H2.00002V13.0525H5.00002C5.17555 13.0525 5.34551 13.1141 5.48032 13.2265C6.4344 14.022 7.66041 14.5 9.00002 14.5C12.0376 14.5 14.5 12.0376 14.5 9C14.5 5.96243 12.0376 3.5 9.00002 3.5C7.25926 3.5 5.70766 4.30785 4.69866 5.57204L3.5263 4.63633C4.66119 3.21441 6.34099 2.24321 8.25001 2.03974V1.25H7.75001H7.00001V-0.25ZM11.6517 7.40901L11.1213 7.93934L9.53033 9.53033L9 10.0607L7.93934 9L8.46967 8.46967L10.0607 6.87868L10.591 6.34835L11.6517 7.40901ZM2 7H2.75H4.25H5V8.5H4.25H2.75H2V7ZM0.75 10H0V11.5H0.75H4.25H5V10H4.25H0.75Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M7.00001 -0.25H7.75001H8.25001H9.75001H10.25H11V1.25H10.25H9.75001V2.03971C11.1207 2.18571 12.3732 2.72735 13.3911 3.54824L13.9697 2.96967L14.5 2.43934L15.5607 3.5L15.0303 4.03033L14.4518 4.6089C15.4202 5.80976 16 7.33717 16 9C16 12.866 12.866 16 9.00002 16C7.3965 16 5.91736 15.46 4.73698 14.5525H2.00002V13.0525H5.00002C5.17555 13.0525 5.34551 13.1141 5.48032 13.2265C6.4344 14.022 7.66041 14.5 9.00002 14.5C12.0376 14.5 14.5 12.0376 14.5 9C14.5 5.96243 12.0376 3.5 9.00002 3.5C7.25926 3.5 5.70766 4.30785 4.69866 5.57204L3.5263 4.63633C4.66119 3.21441 6.34099 2.24321 8.25001 2.03974V1.25H7.75001H7.00001V-0.25ZM11.6517 7.40901L11.1213 7.93934L9.53033 9.53033L9 10.0607L7.93934 9L8.46967 8.46967L10.0607 6.87868L10.591 6.34835L11.6517 7.40901ZM2 7H2.75H4.25H5V8.5H4.25H2.75H2V7ZM0.75 10H0V11.5H0.75H4.25H5V10H4.25H0.75Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+StopwatchFast.displayName = 'StopwatchFast';
 
-
-StopwatchFast.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default StopwatchFast
+export default StopwatchFast;

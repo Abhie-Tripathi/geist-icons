@@ -1,0 +1,37 @@
+[20:53:22.353] [INFO] storybook v10.1.8
+[20:53:23.296] [DEBUG] Getting package.json info for C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/package.json...
+[20:53:23.298] [WARN] You are currently using Storybook [1m10.1.8[22m but you have packages which are incompatible with it:
+
+- @storybook/addon-essentials@8.6.14 which depends on 8.6.14
+ Repo: https://github.com/storybookjs/storybook/tree/next/code/addons/essentials
+- @storybook/addon-interactions@8.6.14 which depends on 8.6.14
+ Repo: https://github.com/storybookjs/storybook/tree/next/code/addons/interactions
+- @storybook/blocks@8.6.14 which depends on ^8.6.14
+ Repo: https://github.com/storybookjs/storybook/tree/next/code/lib/blocks
+
+Please consider updating your packages or contacting the maintainers for compatibility details.
+
+For more details on compatibility guidance, see:
+https://github.com/storybookjs/storybook/issues/32836
+[20:53:24.024] [INFO] Starting...
+[20:53:24.219] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0004 (NoMatchingExportError): There was an exports mismatch error when trying to build Storybook.
+Please check whether the versions of your Storybook packages match whenever possible, as this might be the cause.
+
+Problematic example:
+{ "@storybook/react": "7.5.3", "@storybook/react-vite": "7.4.5", "storybook": "7.3.0" }
+
+Correct example:
+{ "@storybook/react": "7.5.3", "@storybook/react-vite": "7.5.3", "storybook": "7.5.3" }
+
+Please run `npx storybook doctor` for guidance on how to fix this issue.
+
+More info: 
+[39m
+    at buildOrThrow (file:///C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/node_modules/storybook/dist/core-server/index.js:5560:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async buildDevStandalone (file:///C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/node_modules/storybook/dist/core-server/index.js:7208:66)
+    at async withTelemetry (file:///C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/node_modules/storybook/dist/_node-chunks/chunk-6CJUCYYK.js:209:12)
+    at async dev (file:///C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file:///C:/Users/abhie/OneDrive/Desktop/stuff/geist-icons/node_modules/storybook/dist/bin/core.js:2801:92)
+[20:53:24.222] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.

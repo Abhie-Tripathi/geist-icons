@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const KeyOld: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const KeyOld = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M11.25 1.5C9.45507 1.5 7.99999 2.95507 7.99999 4.75C7.99999 6.54493 9.45507 8 11.25 8C13.0449 8 14.5 6.54493 14.5 4.75C14.5 2.95507 13.0449 1.5 11.25 1.5ZM6.49999 4.75C6.49999 2.12665 8.62664 0 11.25 0C13.8733 0 16 2.12665 16 4.75C16 7.37335 13.8733 9.5 11.25 9.5C10.209 9.5 9.24618 9.16512 8.46345 8.5972L7.06065 10L9.03032 11.9697L9.56065 12.5L9.03032 13.0303L6.78032 15.2803L6.24999 15.8107L5.71966 15.2803L3.74999 13.3107L1.78032 15.2803L1.24999 15.8107L0.189331 14.75L0.719661 14.2197L2.68933 12.25L3.21966 11.7197L5.46966 9.46967L5.99999 8.93934L7.40279 7.53654C6.83488 6.75381 6.49999 5.79101 6.49999 4.75ZM4.81065 12.25L6.24999 13.6893L7.43933 12.5L5.99999 11.0607L4.81065 12.25Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M11.25 1.5C9.45507 1.5 7.99999 2.95507 7.99999 4.75C7.99999 6.54493 9.45507 8 11.25 8C13.0449 8 14.5 6.54493 14.5 4.75C14.5 2.95507 13.0449 1.5 11.25 1.5ZM6.49999 4.75C6.49999 2.12665 8.62664 0 11.25 0C13.8733 0 16 2.12665 16 4.75C16 7.37335 13.8733 9.5 11.25 9.5C10.209 9.5 9.24618 9.16512 8.46345 8.5972L7.06065 10L9.03032 11.9697L9.56065 12.5L9.03032 13.0303L6.78032 15.2803L6.24999 15.8107L5.71966 15.2803L3.74999 13.3107L1.78032 15.2803L1.24999 15.8107L0.189331 14.75L0.719661 14.2197L2.68933 12.25L3.21966 11.7197L5.46966 9.46967L5.99999 8.93934L7.40279 7.53654C6.83488 6.75381 6.49999 5.79101 6.49999 4.75ZM4.81065 12.25L6.24999 13.6893L7.43933 12.5L5.99999 11.0607L4.81065 12.25Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+KeyOld.displayName = 'KeyOld';
 
-
-KeyOld.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default KeyOld
+export default KeyOld;

@@ -1,72 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { forwardRef } from 'react';
 
-import SvgContainer from './SvgContainer'
-
-interface AccessibilityProps {
-  style?: React.CSSProperties;
-  color?: string;
-  height?: string;
-  width?: string;
-  className?: string;
-  cssClasses?: string;
+// Using React.SVGProps<SVGSVGElement> to allow all native SVG attributes,
+// plus custom optional props for size, color, and title for convenience.
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  color?: string; // Overrides inherited currentColor if provided
+  size?: string | number;
   title?: string;
-  shake?: boolean;
-  beat?: boolean;
-  rotate?: boolean;
-  onClick?: () => void;
 }
 
-const FlagPriority: React.FC<AccessibilityProps> = ({
-  style = {},
-  color = '#000000',
-  height = '20px',
-  width = '20px',
-  className = '',
-  cssClasses = '',
-  title = '',
-  shake = false,
-  beat = false,
-  rotate = false,
-  onClick,
+const FlagPriority = forwardRef<SVGSVGElement, IconProps>(
+  ({ color, size = 20, title, className, style, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width={size}
+        height={size}
+        viewBox="0 0 16 16"
+        // The default SVG attributes (fill, stroke, strokeWidth, etc.) 
+        // are REMOVED here so the raw SVG paths determine the appearance.
+        className={className}
+        style={color ? { color, ...style } : style} // Apply color via CSS property for inheritance if set
+        {...props}
+      >
+        {/* If the original SVG has complex colors/fills, we want them here. */}
+        {title && <title>{title}</title>}
+        <path fillRule="evenodd" clipRule="evenodd" d="M1.74999 0H2.49999C5.11908 0 7.29 1.31258 9.15128 2.49139C9.26323 2.56229 9.37392 2.63265 9.48348 2.70228C10.3093 3.22718 11.0711 3.71143 11.8308 4.08469C12.6834 4.50368 13.4718 4.75 14.25 4.75L14.666 6.12404L14.25 5.5C14.666 6.12404 14.6659 6.12415 14.6657 6.12427L14.6652 6.12455L14.6641 6.1253L14.6609 6.12746L14.6502 6.13446L14.6129 6.1587C14.5809 6.17926 14.535 6.20844 14.476 6.245C14.358 6.3181 14.1874 6.42085 13.971 6.54332C13.5387 6.78799 12.9213 7.11291 12.174 7.4378C10.6899 8.08306 8.6446 8.75 6.49999 8.75C4.61937 8.75 3.6362 9.21932 3.12951 9.67995C2.62324 10.1402 2.50002 10.6752 2.50002 11V11.75H2.5V15.25V16H1V15.25V0.750011V1.0848e-05H1.74999V0ZM2.5 1.5V8.26607C3.37658 7.64746 4.66583 7.25 6.49999 7.25C8.35537 7.25 10.185 6.66694 11.5759 6.0622C11.7551 5.98431 11.9261 5.90643 12.0881 5.82988C11.7754 5.71357 11.4692 5.57832 11.1692 5.43094C10.3302 5.01865 9.49337 4.48639 8.67739 3.96738C8.56743 3.89744 8.45785 3.82775 8.3487 3.75861C6.45997 2.56242 4.6309 1.5 2.5 1.5Z" fill="currentColor"></path>
+      </svg>
+    );
+  }
+);
 
-}) => {
-  return (
-    <SvgContainer
-      height={height}
-      width={width}
-      color={color}
-      onClick={onClick}
-      rotate={rotate ? true : false}
-      shake={shake ? true : false}
-      beat={beat ? true : false}
-      className={className}
-    >
-      <svg style={style} className={cssClasses}   strokeLinejoin="round"  viewBox="0 0 16 16" >
-                                <path fillRule="evenodd" clipRule="evenodd" d="M1.74999 0H2.49999C5.11908 0 7.29 1.31258 9.15128 2.49139C9.26323 2.56229 9.37392 2.63265 9.48348 2.70228C10.3093 3.22718 11.0711 3.71143 11.8308 4.08469C12.6834 4.50368 13.4718 4.75 14.25 4.75L14.666 6.12404L14.25 5.5C14.666 6.12404 14.6659 6.12415 14.6657 6.12427L14.6652 6.12455L14.6641 6.1253L14.6609 6.12746L14.6502 6.13446L14.6129 6.1587C14.5809 6.17926 14.535 6.20844 14.476 6.245C14.358 6.3181 14.1874 6.42085 13.971 6.54332C13.5387 6.78799 12.9213 7.11291 12.174 7.4378C10.6899 8.08306 8.6446 8.75 6.49999 8.75C4.61937 8.75 3.6362 9.21932 3.12951 9.67995C2.62324 10.1402 2.50002 10.6752 2.50002 11V11.75H2.5V15.25V16H1V15.25V0.750011V1.0848e-05H1.74999V0ZM2.5 1.5V8.26607C3.37658 7.64746 4.66583 7.25 6.49999 7.25C8.35537 7.25 10.185 6.66694 11.5759 6.0622C11.7551 5.98431 11.9261 5.90643 12.0881 5.82988C11.7754 5.71357 11.4692 5.57832 11.1692 5.43094C10.3302 5.01865 9.49337 4.48639 8.67739 3.96738C8.56743 3.89744 8.45785 3.82775 8.3487 3.75861C6.45997 2.56242 4.6309 1.5 2.5 1.5Z" fill="currentColor"></path>
-                              </svg>
-    </SvgContainer>
-  )
-}
+FlagPriority.displayName = 'FlagPriority';
 
-
-FlagPriority.propTypes = {
-  // style
-  style: PropTypes.object,
-  color: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-  cssClasses: PropTypes.string,
-  title: PropTypes.string,
-
-  // animation
-  shake: PropTypes.bool,
-  beat: PropTypes.bool,
-  rotate: PropTypes.bool,
-
-  // functions
-  onClick: PropTypes.func
-}
-
-
-export default FlagPriority
+export default FlagPriority;
