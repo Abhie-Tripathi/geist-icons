@@ -55,5 +55,8 @@
     "ts-node": "^10.9.2",
     "tsup": "^8.1.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "geist-icons": "^1.3.0"
   }
 }
